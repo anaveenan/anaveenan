@@ -161,7 +161,7 @@ window.onload = wrap_img;
 <li>Structured data   </li>
 <li>Spreadsheets </li>
 </ol>
-<p>Pandas is one of the widely used data manipulation library in python for structured datasets. Below is a summary of the key operations essential for performing data analysis project(SQL equivalents).</p>
+<p>Pandas is one of the widely used data manipulation library in python for structured datasets. Below is a summary of the key operations that are part of any essential data analysis project(SQL equivalents).</p>
 <ol>
 <li>Select column references </li>
 <li>Select scalar expression  </li>
@@ -318,7 +318,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Select total_bill and tips column from the data. Note: we are using chaining to perform operations one after another</p>
+<p>Select total_bill and tips column from the data. Note: we are using method chaining to perform operations one after another</p>
 
 </div>
 </div>
@@ -410,9 +410,108 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Select only columns starting with the letter 't'. Using this simple and readable syntax enables as to perform complex select operations in pandas</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">df</span>
+ <span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)]]</span>
+ <span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>total_bill</th>
+      <th>tip</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>16.99</td>
+      <td>1.01</td>
+      <td>Dinner</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>10.34</td>
+      <td>1.66</td>
+      <td>Dinner</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>21.01</td>
+      <td>3.50</td>
+      <td>Dinner</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>23.68</td>
+      <td>3.31</td>
+      <td>Dinner</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>24.59</td>
+      <td>3.61</td>
+      <td>Dinner</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Select-columns-manipulation">Select columns manipulation<a class="anchor-link" href="#Select-columns-manipulation"> </a></h4><p>Use assign statement to add new columns, updated existing columns</p>
 <div class="highlight"><pre><span></span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">new_col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">new_col</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;col&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">old_col</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;old_col&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -428,6 +527,7 @@ window.onload = wrap_img;
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">df</span>
  <span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span><span class="s1">&#39;tip&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span>
  <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">percentage_tip</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;tip&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;total_bill&#39;</span><span class="p">])</span>
+ <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tip</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;tip&#39;</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
  <span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="p">)</span>
 </pre></div>
@@ -473,7 +573,7 @@ window.onload = wrap_img;
     <tr>
       <th>0</th>
       <td>16.99</td>
-      <td>1.01</td>
+      <td>2.01</td>
       <td>Female</td>
       <td>Sun</td>
       <td>Dinner</td>
@@ -482,7 +582,7 @@ window.onload = wrap_img;
     <tr>
       <th>1</th>
       <td>10.34</td>
-      <td>1.66</td>
+      <td>2.66</td>
       <td>Male</td>
       <td>Sun</td>
       <td>Dinner</td>
@@ -491,7 +591,7 @@ window.onload = wrap_img;
     <tr>
       <th>2</th>
       <td>21.01</td>
-      <td>3.50</td>
+      <td>4.50</td>
       <td>Male</td>
       <td>Sun</td>
       <td>Dinner</td>
@@ -500,7 +600,7 @@ window.onload = wrap_img;
     <tr>
       <th>3</th>
       <td>23.68</td>
-      <td>3.31</td>
+      <td>4.31</td>
       <td>Male</td>
       <td>Sun</td>
       <td>Dinner</td>
@@ -509,7 +609,7 @@ window.onload = wrap_img;
     <tr>
       <th>4</th>
       <td>24.59</td>
-      <td>3.61</td>
+      <td>4.61</td>
       <td>Female</td>
       <td>Sun</td>
       <td>Dinner</td>
