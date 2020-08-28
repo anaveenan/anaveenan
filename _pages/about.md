@@ -8,5 +8,5 @@ I am a Data Scientist with focus on Product, Marketing and Customer Growth strat
 
 * Customer Growth Marketing  
 * Personalization   
-* Pricing & Promotions(uplift modeling/casual modeling)      
+* Pricing & Promotions(uplift modeling/causal modeling)      
 * Experimentation   
