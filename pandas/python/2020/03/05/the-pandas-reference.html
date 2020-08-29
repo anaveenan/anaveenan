@@ -95,7 +95,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      5 min read
     
 </span></p>
 
@@ -185,6 +185,7 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/mwaskom/seaborn-data/master/tips.csv&quot;</span><span class="p">)</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">max_rows</span> <span class="o">=</span> <span class="mi">20</span>
 </pre></div>
@@ -411,7 +412,7 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Select only columns starting with the letter 't'. Using this simple and readable syntax enables as to perform complex select operations in pandas</p>
+<p>Select only columns starting with the letter 't'. Using this simple and readable syntax enables one to perform complex select operations in pandas</p>
 
 </div>
 </div>
@@ -639,7 +640,10 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Filter-rows-(where)">Filter rows (where)<a class="anchor-link" href="#Filter-rows-(where)"> </a></h2><p>Use query to perform filtering of rows in pandas</p>
-<div class="highlight"><pre><span></span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;col1&gt;=&#39;10&#39;&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">val</span><span class="o">=</span><span class="mi">10</span>
+<span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;col1&gt;=&#39;10&#39;&quot;</span><span class="p">)</span>
+<span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;col1&gt;=&#39;@val&#39;&quot;</span><span class="p">)</span>
+<span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;col1&gt;=&#39;</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;col1.isin([&#39;a&#39;,&#39;b&#39;])&quot;</span><span class="p">,</span><span class="n">engine</span><span class="o">=</span><span class="s1">&#39;python&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -767,10 +771,19 @@ window.onload = wrap_img;
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">per_tip</span><span class="o">=.</span><span class="mi">15</span>
 <span class="c1">#using @ within query to refer a variable in the filter </span>
-<span class="p">(</span><span class="n">df</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span>
  <span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span><span class="s1">&#39;tip&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span>
  <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">percentage_tip</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;tip&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;total_bill&#39;</span><span class="p">])</span>
  <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;percentage_tip&gt;@per_tip&quot;</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1">#using f-string to perform filtering</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span>
+ <span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span><span class="s1">&#39;tip&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span>
+ <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">percentage_tip</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;tip&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;total_bill&#39;</span><span class="p">])</span>
+ <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;percentage_tip&gt;</span><span class="si">{</span><span class="n">per_tip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
  <span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="p">)</span>
 </pre></div>
@@ -784,8 +797,99 @@ window.onload = wrap_img;
 
 <div class="output_area">
 
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+</pre>
+</div>
+</div>
 
-<div class="output_html rendered_html output_subarea output_execute_result">
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>total_bill</th>
+      <th>tip</th>
+      <th>sex</th>
+      <th>day</th>
+      <th>time</th>
+      <th>percentage_tip</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>10.34</td>
+      <td>1.66</td>
+      <td>Male</td>
+      <td>Sun</td>
+      <td>Dinner</td>
+      <td>0.160542</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>21.01</td>
+      <td>3.50</td>
+      <td>Male</td>
+      <td>Sun</td>
+      <td>Dinner</td>
+      <td>0.166587</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>25.29</td>
+      <td>4.71</td>
+      <td>Male</td>
+      <td>Sun</td>
+      <td>Dinner</td>
+      <td>0.186240</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>8.77</td>
+      <td>2.00</td>
+      <td>Male</td>
+      <td>Sun</td>
+      <td>Dinner</td>
+      <td>0.228050</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>14.78</td>
+      <td>3.23</td>
+      <td>Male</td>
+      <td>Sun</td>
+      <td>Dinner</td>
+      <td>0.218539</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -978,7 +1082,7 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Group-By-and-Aggregation">Group By and Aggregation<a class="anchor-link" href="#Group-By-and-Aggregation"> </a></h2><p>Use groupby with named aggs to perform any type of aggregations</p>
+<h2 id="Group-By-and-Aggregation">Group By and Aggregation<a class="anchor-link" href="#Group-By-and-Aggregation"> </a></h2><p>Use groupby with named aggs to perform any type of aggregations. Aggregation function are flexible enough that we can pass in lambda function and numpy functions to perform aggregations.</p>
 
 </div>
 </div>
@@ -994,7 +1098,7 @@ window.onload = wrap_img;
 <span class="p">(</span><span class="n">df</span>
  <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;day&#39;</span><span class="p">])</span>
  <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">avg_bill</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
-     <span class="p">,</span><span class="n">total_bill</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span><span class="s1">&#39;sum&#39;</span><span class="p">))</span>
+     <span class="p">,</span><span class="n">total_bill</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span><span class="s1">&#39;sum&#39;</span><span class="p">))</span> <span class="c1">#multiple column aggregations supported</span>
  <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="p">)</span>
 </pre></div>
@@ -1057,6 +1161,100 @@ window.onload = wrap_img;
       <td>Thur</td>
       <td>17.682742</td>
       <td>1096.33</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#By day get average of total bill using : functions, lambda functions, numpy functions </span>
+<span class="p">(</span><span class="n">df</span>
+ <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;day&#39;</span><span class="p">])</span>
+ <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">avg_bill_mean</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+     <span class="p">,</span><span class="n">avg_bill_lambda</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="c1">#using lambda functions</span>
+     <span class="p">,</span><span class="n">avg_bill_np</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">))</span> <span class="c1">#using numpy functions </span>
+ <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>day</th>
+      <th>avg_bill_mean</th>
+      <th>avg_bill_lambda</th>
+      <th>avg_bill_np</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Fri</td>
+      <td>17.151579</td>
+      <td>17.151579</td>
+      <td>17.151579</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Sat</td>
+      <td>20.441379</td>
+      <td>20.441379</td>
+      <td>20.441379</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Sun</td>
+      <td>21.410000</td>
+      <td>21.410000</td>
+      <td>21.410000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Thur</td>
+      <td>17.682742</td>
+      <td>17.682742</td>
+      <td>17.682742</td>
     </tr>
   </tbody>
 </table>
